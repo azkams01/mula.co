@@ -4,168 +4,195 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mula Origins | The Purest Velvet Dust</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Playfair+Display:wght@400;600;700;900&display=swap" rel="stylesheet">
     
     <style>
+        /* GLOBAL STYLES */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         body { background-color: #0f0f0f; color: white; overflow-x: hidden; scroll-behavior: smooth; }
         
-        /* SCROLL ANIMATION - MUNCUL SATU-SATU */
-        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* SCROLL ANIMATION */
+        .fade-in-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
-        .delay-1 { transition-delay: 0.15s; } 
-        .delay-2 { transition-delay: 0.3s; }
-        .delay-3 { transition-delay: 0.45s; } 
-        .delay-4 { transition-delay: 0.6s; }
+        .delay-1 { transition-delay: 0.15s; } .delay-2 { transition-delay: 0.3s; } .delay-3 { transition-delay: 0.45s; } .delay-4 { transition-delay: 0.6s; }
+
+        /* TOP BAR CONTACT INFO */
+        #top-bar {
+            position: absolute; top: 0; left: 0; width: 100%; background: #d4af37; color: #111;
+            padding: 10px 50px; display: flex; justify-content: center; gap: 35px; flex-wrap: wrap;
+            font-size: 11px; font-weight: 700; z-index: 1000; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .tb-item { display: flex; align-items: center; gap: 8px; }
+        .tb-icon { width: 14px; height: 14px; fill: currentColor; }
 
         /* NAVBAR */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 50px; position: fixed; width: 100%; z-index: 999; background: transparent; transition: all 0.4s ease; }
-        nav.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 15px 50px; }
-        .brand-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: white; text-decoration: none; letter-spacing: 4px; transition: color 0.3s;}
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 25px 50px; position: absolute; width: 100%; z-index: 999; 
+            background: transparent; transition: background 0.3s, box-shadow 0.3s, padding 0.3s;
+        }
+        nav.scrolled {
+            position: fixed !important; top: 0 !important;
+            background: rgba(255, 255, 255, 0.98); box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 15px 50px;
+        }
+        .brand-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: white; text-decoration: none; letter-spacing: 4px; transition: color 0.3s; position: relative; z-index: 1002;}
         
-        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links { display: flex; gap: 35px; align-items: center; transition: 0.4s ease; }
         .nav-links a { color: #fff; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s;}
         .nav-links a:hover { color: #d4af37; }
         
-        /* FIX: LINK EXPORT SELALU GOLD DARI AWAL */
-        .nav-links a.active { color: #d4af37 !important; font-weight: 700; }
-        nav.scrolled .nav-links a.active { color: #d4af37 !important; }
-
         .btn-outline { border: 1px solid rgba(255,255,255,0.6); color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; transition: all 0.3s;}
         
         nav.scrolled .brand-logo { color: #1a1a1a; }
-        nav.scrolled .nav-links a:not(.active) { color: #1a1a1a; }
-        nav.scrolled .nav-links a:not(.active):hover { color: #d4af37; }
+        nav.scrolled .nav-links a:not([href="export.html"]) { color: #1a1a1a; }
+        nav.scrolled .nav-links a:not([href="export.html"]):hover { color: #d4af37; }
         nav.scrolled .btn-outline { border-color: #1a1a1a; color: #1a1a1a; }
         nav.scrolled .btn-outline:hover { background: #d4af37; border-color: #d4af37; color: #111; }
+
+        /* HAMBURGER MENU */
+        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1002; }
+        .menu-toggle span { width: 30px; height: 2px; background: white; transition: 0.3s; }
+        nav.scrolled .menu-toggle span { background: #111; }
+        .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: #d4af37 !important;}
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: #d4af37 !important;}
+        .mobile-only { display: none; }
         
-        /* HERO SECTION - WARMER BACKGROUND & AESTHETIC BLOB */
+        /* HERO SECTION */
         .hero { 
             height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             text-align: center; position: relative; overflow: hidden;
             background: radial-gradient(circle at center, #26140b 0%, #110804 50%, #080402 100%);
         }
         #dustCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-        
-        /* BLOB ELEGAN */
-        .hero-blob {
-            position: absolute; width: 750px; height: 650px; 
-            background: rgba(20, 10, 5, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.02); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            animation: morphBlob 15s ease-in-out infinite alternate; z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.8); 
-        }
-        @keyframes morphBlob {
-            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
-            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(5deg) scale(1.05); }
-            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(-5deg) scale(1); }
-        }
-
+        .hero-blob { position: absolute; width: 750px; height: 650px; background: rgba(20, 10, 5, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; animation: morphBlob 15s ease-in-out infinite alternate; z-index: 2; box-shadow: 0 0 80px rgba(0,0,0,0.8); }
+        @keyframes morphBlob { 0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); } 50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(5deg) scale(1.05); } 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(-5deg) scale(1); } }
         .hero-content { position: relative; z-index: 10; margin-top: -30px;}
-        .subtitle { color: #d4af37; letter-spacing: 4px; font-size: 12px; text-transform: uppercase; font-weight: 600; margin-bottom: 25px; display: block;}
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 5.8rem; font-weight: 700; line-height: 1.05; letter-spacing: -1px; margin: 0;}
-        .text-white { color: #ffffff; }
         .text-gradient { background: linear-gradient(to right, #d4af37, #f3e5ab, #b8860b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-desc { font-size: 15px; color: #ccc; max-width: 550px; line-height: 1.7; margin: 30px auto; font-weight: 400;}
         
-        .btn-gold { 
-            background: linear-gradient(45deg, #d4af37, #f3e5ab); color: #111; 
-            padding: 15px 35px; border-radius: 50px; font-weight: 700; font-size: 13px; letter-spacing: 1px;
-            text-decoration: none; border: none; cursor: pointer; display: inline-block; transition: 0.3s;
-        }
+        .btn-gold { background: linear-gradient(45deg, #d4af37, #f3e5ab); color: #111; padding: 15px 35px; border-radius: 50px; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-decoration: none; border: none; cursor: pointer; display: inline-block; transition: 0.3s; }
         .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212,175,55,0.4); }
         
-        /* JOURNEY */
+        /* OTHERS */
         .journey { padding: 120px 20px; text-align: center; background: #080402; }
-        .journey h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #d4af37; margin-bottom: 15px; font-weight: 700; }
         .timeline-wrapper { position: relative; max-width: 650px; margin: 60px auto 0 auto; padding-left: 50px; text-align: left; }
         .timeline-line { position: absolute; left: 0; top: 10px; bottom: -50px; width: 1px; background: rgba(212,175,55,0.5); }
         .timeline-item { position: relative; margin-bottom: 70px; }
-        .timeline-dot { position: absolute; left: -56px; top: 5px; width: 13px; height: 13px; border-radius: 50%; border: 2px solid #d4af37; background: #0f0f0f; box-shadow: 0 0 10px rgba(212,175,55,0.4); }
-        .timeline-item h3 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 8px 0 15px 0; color: white; font-weight: 700;}
-        .timeline-item p { color: #aaa; line-height: 1.7; font-size: 14.5px; }
-
-        /* WHY POWDER */
+        .timeline-dot { position: absolute; left: -56px; top: 5px; width: 13px; height: 13px; border-radius: 50%; border: 2px solid #d4af37; background: #0f0f0f; }
+        
         .why-powder { background: white; color: #111; padding: 100px 50px; }
-        .grid-3 { display: flex; max-width: 1200px; margin: 0 auto; gap: 30px; flex-wrap: wrap;}
-        .grid-3 > div { flex: 1; min-width: 300px; }
-        .card-light { background: #f9f9f9; border-radius: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 50px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);}
-        .card-dark { background: #281a14; color: white; border-radius: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 50px 20px; box-shadow: 0 15px 40px rgba(40,26,20,0.2);}
-
-        /* PRODUCT GRADES */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto;}
+        
         .product-grades { padding: 120px 50px; background: #0a0503; }
         .grade-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1200px; margin: 60px auto 0 auto; }
-        .grade-card {
-            background: linear-gradient(145deg, #160c08, #0a0503); border: 1px solid #1f110c; padding: 35px 25px; border-radius: 15px;
-            position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; display: flex; flex-direction: column;
-        }
-        .grade-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.3); }
-        .ph-badge { position: absolute; top: 20px; right: 20px; background: rgba(212,175,55,0.1); color: #d4af37; padding: 5px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; border: 1px solid rgba(212,175,55,0.2); letter-spacing: 1px; }
-        .grade-card h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: white; margin-top: 10px;}
-        .spec-list { list-style: none; padding: 0; color: #888; font-size: 12.5px; line-height: 2.5; margin-bottom: 30px;}
-        .spec-list li { display: flex; justify-content: space-between; border-bottom: 1px dashed #222; }
-        .spec-list li:last-child { border-bottom: none; }
-        .spec-list li span:last-child { color: #ddd; font-weight: 600; }
-        .btn-details { margin-top: auto; display: block; text-align: center; border: 1px solid #d4af37; color: #d4af37; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s;}
-        .btn-details:hover { background: #d4af37; color: #111; }
-
-        /* AESTHETIC NEWS */
+        .grade-card { background: linear-gradient(145deg, #160c08, #0a0503); border: 1px solid #1f110c; padding: 35px 25px; border-radius: 15px; position: relative; transition: 0.3s;}
+        
         .news-section { background: white; padding: 100px 50px; color: #111; text-align: center; }
         .empty-state { padding: 80px 40px; background: #fdfdfd; border: 1px dashed #e0e0e0; border-radius: 15px; max-width: 800px; margin: 40px auto; }
         
-        /* WHATSAPP FLOAT - CLEAN SVG */
         .wa-float { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0px 8px 25px rgba(37, 211, 102, 0.4); transition: transform 0.3s; }
         .wa-float:hover { transform: translateY(-5px) scale(1.05); }
-        .wa-icon { width: 35px; height: 35px; fill: white; }
 
-        .footer { background: #050201; padding: 60px 20px; text-align: center; color: #555; font-size: 13px;}
+        /* RESPONSIVE MOBILE FIX */
+        @media (max-width: 768px) {
+            #top-bar { flex-direction: column; gap: 8px; padding: 12px 20px; font-size: 9px; text-align: center; }
+            nav { padding: 15px 20px; }
+            nav.scrolled { padding: 15px 20px; }
+            
+            /* Hamburger Logic */
+            .menu-toggle { display: flex; }
+            .btn-outline.desktop-only { display: none; }
+            .mobile-only { display: inline-block; margin-top: 20px; border: 1px solid #d4af37; color: #d4af37 !important; padding: 12px 30px; border-radius: 50px; width: max-content;}
+            
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+                background: #0f0f0f; flex-direction: column; justify-content: center;
+                border-left: 1px solid #222; opacity: 0; visibility: hidden; z-index: 1001;
+            }
+            .nav-links.active { right: 0; opacity: 1; visibility: visible; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+            nav.scrolled .nav-links { background: #fafafa; border-left: 1px solid #ddd; }
+            nav.scrolled .nav-links a:not(.mobile-only) { color: #111; }
+            
+            .hero h1 { font-size: 3.5rem !important; }
+            .hero-blob { width: 350px; height: 350px; }
+            .journey h2, .why-powder h2, .product-grades h2, .news-section h2 { font-size: 2.2rem !important; }
+            .grid-3 { grid-template-columns: 1fr; gap: 20px;}
+            .timeline-wrapper { padding-left: 25px !important; margin: 40px auto 0 auto;}
+            .timeline-dot { left: -31px !important; }
+            .why-powder { padding: 80px 20px; }
+            .product-grades { padding: 80px 20px; }
+            .news-section { padding: 80px 20px; }
+            .empty-state { padding: 40px 20px; }
+        }
     </style>
 </head>
 <body>
 
+    <div id="top-bar">
+        <div class="tb-item">
+            <svg class="tb-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            Jl. Industri IV No.5, Cimahi, Indonesia
+        </div>
+        <div class="tb-item">
+            <svg class="tb-icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            +62 815-7022-091 / +62 881-4023-002
+        </div>
+        <div class="tb-item">
+            <svg class="tb-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            azkams01@gmail.com
+        </div>
+    </div>
+
     <nav id="navbar">
         <a href="#" class="brand-logo">MULA.</a>
-        <div class="nav-links">
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+
+        <div class="nav-links" id="navLinks">
             <a href="#">Products</a>
             <a href="#">Grades</a>
             <a href="#">News</a>
-            <a href="export.html" class="active">Export Catalog</a>
+            <a href="export.html" style="color: #d4af37 !important; font-weight: bold;">Export Catalog</a>
+            <a href="login.html" class="btn-outline mobile-only">PARTNER AREA</a>
         </div>
-        <a href="login.html" class="btn-outline">PARTNER AREA</a>
+        <a href="login.html" class="btn-outline desktop-only">PARTNER AREA</a>
     </nav>
 
     <section class="hero">
         <canvas id="dustCanvas"></canvas>
         <div class="hero-blob"></div>
-
         <div class="hero-content fade-in-up">
-            <span class="subtitle fade-in-up delay-1">Premium Cocoa Powder</span>
+            <span class="subtitle fade-in-up delay-1" style="color: #d4af37; letter-spacing: 4px; font-size: 12px; text-transform: uppercase; font-weight: 600; margin-bottom: 25px; display: block;">Premium Cocoa Powder</span>
             <h1 class="text-white fade-in-up delay-2">The Purest</h1>
             <h1 class="text-gradient fade-in-up delay-3">Velvet Dust.</h1>
-            <p class="hero-desc fade-in-up delay-4">Not just powder. This is the true essence of cocoa with a velvet-like texture for world-class culinary creations.</p>
+            <p class="fade-in-up delay-4" style="font-size: 15px; color: #ccc; max-width: 550px; line-height: 1.7; margin: 30px auto;">Not just powder. This is the true essence of cocoa with a velvet-like texture for world-class culinary creations.</p>
             <a href="export.html" class="btn-gold fade-in-up delay-4">VIEW EXPORT CATALOG</a>
         </div>
     </section>
 
     <section class="journey">
-        <h2 class="fade-in-up">Why We Exist?</h2>
+        <h2 class="fade-in-up" style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #d4af37; margin-bottom: 15px; font-weight: 700;">Why We Exist?</h2>
         <p class="fade-in-up delay-1" style="color: #888; font-size: 15px; margin-bottom: 20px;">We exist not merely to sell commodities,<br>but to solve the F&B industry's biggest anxiety today.</p>
         
-        <div class="timeline-wrapper">
+        <div class="timeline-wrapper fade-in-up delay-2">
             <div class="timeline-line"></div>
-            <div class="timeline-item fade-in-up delay-2">
+            <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <p style="color: #d4af37; font-size: 10px; letter-spacing: 2px; font-weight: bold;">THE PROBLEM</p>
-                <h3>The Global Crisis</h3>
-                <p>The F&B industry is shaken. The cocoa 'Super Cycle' has skyrocketed prices. Market volatility makes production costs uncontrollable, forcing businesses to choose between raising prices or secretly lowering quality.</p>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 8px 0 15px 0; color: white; font-weight: 700;">The Global Crisis</h3>
+                <p style="color: #aaa; line-height: 1.7; font-size: 14.5px;">The F&B industry is shaken. The cocoa 'Super Cycle' has skyrocketed prices. Market volatility makes production costs uncontrollable, forcing businesses to choose between raising prices or secretly lowering quality.</p>
             </div>
-            <div class="timeline-item fade-in-up delay-3">
+            <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <p style="color: #d4af37; font-size: 10px; letter-spacing: 2px; font-weight: bold;">THE ANSWER</p>
-                <h3>Stability Over Superiority.</h3>
-                <p>We are here not to claim subjective 'best taste', but to be your <strong>Most Consistent Partner</strong>. We deliver peace of mind so you can focus on business expansion, not raw material fluctuations.</p>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 8px 0 15px 0; color: white; font-weight: 700;">Stability Over Superiority.</h3>
+                <p style="color: #aaa; line-height: 1.7; font-size: 14.5px;">We are here not to claim subjective 'best taste', but to be your <strong>Most Consistent Partner</strong>. We deliver peace of mind so you can focus on business expansion, not raw material fluctuations.</p>
             </div>
         </div>
     </section>
@@ -176,11 +203,11 @@
                 <h2 class="fade-in-up" style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 20px; font-weight: 700;">Why <br>Powder?</h2>
                 <p class="fade-in-up delay-1" style="color: #555; line-height: 1.7; font-size: 15px;">Our cocoa powder is processed using modern <em>Dutch-Process</em> techniques, resulting in deep reddish-brown colors and high solubility for large-scale manufacturing standards.</p>
             </div>
-            <div class="card-light fade-in-up delay-2">
+            <div class="card-light fade-in-up delay-2" style="background: #f9f9f9; border-radius: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 50px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
                 <h3 style="font-size: 3.5rem; color: #d4af37; font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 5px;">10-12%</h3>
                 <p style="font-size: 13px; font-weight: 600; color: #555;">Standard Fat Content</p>
             </div>
-            <div class="card-dark fade-in-up delay-3">
+            <div class="card-dark fade-in-up delay-3" style="background: #281a14; color: white; border-radius: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 50px 20px; box-shadow: 0 15px 40px rgba(40,26,20,0.2);">
                 <h3 style="font-size: 3.5rem; color: #d4af37; font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 5px;">5 Microns</h3>
                 <p style="font-size: 13px; font-weight: 600; color: #ccc;">Super Fine Particle</p>
             </div>
@@ -192,38 +219,12 @@
             <h2 class="text-gradient fade-in-up" style="font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700;">Our Cocoa Grades</h2>
             <p class="fade-in-up delay-1" style="color: #888; margin-top: 15px; font-size: 15px;">Complete specification catalog tailored for your manufacturing formulas.</p>
         </div>
-        
         <div class="grade-grid">
-            <div class="grade-card fade-in-up delay-1">
-                <div class="ph-badge">pH 5.1 - 6.0</div>
-                <h3>Natural Brown</h3>
-                <ul class="spec-list"><li><span>Fat Content</span> <span>10 - 12%</span></li><li><span>Moisture</span> <span>5% Max</span></li><li><span>Fineness</span> <span>99.5% Min</span></li></ul>
-                <a href="export.html#natural" class="btn-details">SEE DETAILS</a>
-            </div>
-            <div class="grade-card fade-in-up delay-2">
-                <div class="ph-badge">pH 6.5 - 6.8</div>
-                <h3>Alkalized Brown</h3>
-                <ul class="spec-list"><li><span>Fat Content</span> <span>10 - 12%</span></li><li><span>Moisture</span> <span>5% Max</span></li><li><span>Fineness</span> <span>99.5% Min</span></li></ul>
-                <a href="export.html#alkalized-brown" class="btn-details">SEE DETAILS</a>
-            </div>
-            <div class="grade-card fade-in-up delay-3">
-                <div class="ph-badge">pH 6.7 - 7.5</div>
-                <h3>Dark Brown</h3>
-                <ul class="spec-list"><li><span>Fat Content</span> <span>10 - 12%</span></li><li><span>Moisture</span> <span>5% Max</span></li><li><span>Fineness</span> <span>99.5% Min</span></li></ul>
-                <a href="export.html#dark-brown" class="btn-details">SEE DETAILS</a>
-            </div>
-            <div class="grade-card fade-in-up delay-4">
-                <div class="ph-badge">pH 6.8 - 7.8</div>
-                <h3>Very Dark</h3>
-                <ul class="spec-list"><li><span>Fat Content</span> <span>10 - 12%</span></li><li><span>Moisture</span> <span>5% Max</span></li><li><span>Fineness</span> <span>99.5% Min</span></li></ul>
-                <a href="export.html#very-dark" class="btn-details">SEE DETAILS</a>
-            </div>
-            <div class="grade-card fade-in-up delay-4">
-                <div class="ph-badge">pH 7.5 - 7.9</div>
-                <h3>Intense Black</h3>
-                <ul class="spec-list"><li><span>Fat Content</span> <span>10 - 12%</span></li><li><span>Moisture</span> <span>5% Max</span></li><li><span>Fineness</span> <span>99.5% Min</span></li></ul>
-                <a href="export.html#black" class="btn-details">SEE DETAILS</a>
-            </div>
+            <div class="grade-card fade-in-up delay-1"><div class="ph-badge">pH 5.1 - 6.0</div><h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: white; margin-top: 10px;">Natural Brown</h3><ul class="spec-list" style="list-style: none; padding: 0; color: #888; font-size: 12.5px; line-height: 2.5; margin-bottom: 30px;"><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Fat Content</span> <span style="color:#ddd; font-weight:600;">10 - 12%</span></li><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Moisture</span> <span style="color:#ddd; font-weight:600;">5% Max</span></li><li style="display: flex; justify-content: space-between;"><span>Fineness</span> <span style="color:#ddd; font-weight:600;">99.5% Min</span></li></ul><a href="export.html#natural" style="display: block; text-align: center; border: 1px solid #d4af37; color: #d4af37; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s;">SEE DETAILS</a></div>
+            <div class="grade-card fade-in-up delay-2"><div class="ph-badge">pH 6.5 - 6.8</div><h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: white; margin-top: 10px;">Alkalized Brown</h3><ul class="spec-list" style="list-style: none; padding: 0; color: #888; font-size: 12.5px; line-height: 2.5; margin-bottom: 30px;"><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Fat Content</span> <span style="color:#ddd; font-weight:600;">10 - 12%</span></li><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Moisture</span> <span style="color:#ddd; font-weight:600;">5% Max</span></li><li style="display: flex; justify-content: space-between;"><span>Fineness</span> <span style="color:#ddd; font-weight:600;">99.5% Min</span></li></ul><a href="export.html#alkalized-brown" style="display: block; text-align: center; border: 1px solid #d4af37; color: #d4af37; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s;">SEE DETAILS</a></div>
+            <div class="grade-card fade-in-up delay-3"><div class="ph-badge">pH 6.7 - 7.5</div><h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: white; margin-top: 10px;">Dark Brown</h3><ul class="spec-list" style="list-style: none; padding: 0; color: #888; font-size: 12.5px; line-height: 2.5; margin-bottom: 30px;"><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Fat Content</span> <span style="color:#ddd; font-weight:600;">10 - 12%</span></li><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Moisture</span> <span style="color:#ddd; font-weight:600;">5% Max</span></li><li style="display: flex; justify-content: space-between;"><span>Fineness</span> <span style="color:#ddd; font-weight:600;">99.5% Min</span></li></ul><a href="export.html#dark-brown" style="display: block; text-align: center; border: 1px solid #d4af37; color: #d4af37; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s;">SEE DETAILS</a></div>
+            <div class="grade-card fade-in-up delay-4"><div class="ph-badge">pH 6.8 - 7.8</div><h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: white; margin-top: 10px;">Very Dark</h3><ul class="spec-list" style="list-style: none; padding: 0; color: #888; font-size: 12.5px; line-height: 2.5; margin-bottom: 30px;"><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Fat Content</span> <span style="color:#ddd; font-weight:600;">10 - 12%</span></li><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Moisture</span> <span style="color:#ddd; font-weight:600;">5% Max</span></li><li style="display: flex; justify-content: space-between;"><span>Fineness</span> <span style="color:#ddd; font-weight:600;">99.5% Min</span></li></ul><a href="export.html#very-dark" style="display: block; text-align: center; border: 1px solid #d4af37; color: #d4af37; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s;">SEE DETAILS</a></div>
+            <div class="grade-card fade-in-up delay-4"><div class="ph-badge">pH 7.5 - 7.9</div><h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px; color: white; margin-top: 10px;">Intense Black</h3><ul class="spec-list" style="list-style: none; padding: 0; color: #888; font-size: 12.5px; line-height: 2.5; margin-bottom: 30px;"><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Fat Content</span> <span style="color:#ddd; font-weight:600;">10 - 12%</span></li><li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #222;"><span>Moisture</span> <span style="color:#ddd; font-weight:600;">5% Max</span></li><li style="display: flex; justify-content: space-between;"><span>Fineness</span> <span style="color:#ddd; font-weight:600;">99.5% Min</span></li></ul><a href="export.html#black" style="display: block; text-align: center; border: 1px solid #d4af37; color: #d4af37; padding: 10px; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s;">SEE DETAILS</a></div>
         </div>
     </section>
 
@@ -238,42 +239,59 @@
     </section>
 
     <a href="https://wa.me/628157022091" class="wa-float" target="_blank">
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <svg style="width: 35px; height: 35px; fill: white;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
-    <footer class="footer">
+    <footer style="background: #050505; padding: 60px 20px; text-align: center; color: #555; font-size: 13px;">
         <h2 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 15px; font-size: 2.5rem; font-weight: 900; letter-spacing: 2px;">MULA ORIGINS.</h2>
         <p>&copy; 2026 Mula Origins Indonesia. Premium B2B Supplier.</p>
     </footer>
 
     <script>
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
+        // LOGIC NAVBAR & TOP BAR SCROLL
+        const topBar = document.getElementById('top-bar');
+        const nav = document.getElementById('navbar');
+        
+        function handleScroll() {
+            const topBarHeight = topBar.offsetHeight;
+            if (window.scrollY > topBarHeight) {
+                nav.classList.add('scrolled');
+                nav.style.top = '0px';
+            } else {
+                nav.classList.remove('scrolled');
+                nav.style.top = topBarHeight + 'px';
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+        handleScroll(); // Trigger onload
+
+        // MOBILE HAMBURGER MENU
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
 
+        // SCROLL ANIMATION
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // Biarkan ini uncomment agar animasi cuma jalan sekali, lebih profesional
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
-        
         document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
-        // CANVAS
+        // CANVAS DUST
         const canvas = document.getElementById('dustCanvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
-        
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas); resizeCanvas();
-
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;

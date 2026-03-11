@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mula Origins | Export Catalog</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
@@ -12,166 +13,164 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
         body { background-color: #fafafa; color: #111; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* ANIMASI FADE-IN YANG DIPERBAIKI */
         .fade-in-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
-        .delay-1 { transition-delay: 0.15s; } .delay-2 { transition-delay: 0.3s; } .delay-3 { transition-delay: 0.45s; }
+        .delay-1 { transition-delay: 0.15s; } .delay-2 { transition-delay: 0.3s; }
+
+        /* TOP BAR CONTACT INFO */
+        #top-bar {
+            position: absolute; top: 0; left: 0; width: 100%; background: #d4af37; color: #111;
+            padding: 10px 50px; display: flex; justify-content: center; gap: 35px; flex-wrap: wrap;
+            font-size: 11px; font-weight: 700; z-index: 1000; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .tb-item { display: flex; align-items: center; gap: 8px; }
+        .tb-icon { width: 14px; height: 14px; fill: currentColor; }
 
         /* NAVBAR */
-        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: 0.4s ease; background: transparent;}
-        nav.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 15px 50px; }
+        nav { position: absolute; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 999; transition: 0.4s ease; background: transparent;}
+        nav.scrolled { position: fixed !important; top: 0 !important; background: rgba(255, 255, 255, 0.98); box-shadow: 0 5px 20px rgba(0,0,0,0.1); padding: 15px 50px; }
         
         nav a { color: white; text-decoration: none; font-size: 12px; font-weight: bold; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
         nav a:hover { color: #d4af37; }
-        .nav-logo { color: #d4af37; font-weight: 900; font-family: 'Playfair Display', serif; font-size: 24px; letter-spacing: 4px; }
+        .nav-logo { color: #d4af37; font-weight: 900; font-family: 'Playfair Display', serif; font-size: 24px; letter-spacing: 4px; position: relative; z-index: 1002;}
         
-        /* Ubah warna link jadi hitam saat di-scroll (karena background putih) */
         nav.scrolled a { color: #111; }
         nav.scrolled a:hover { color: #d4af37; }
 
-        .center-nav { display: flex; gap: 35px; }
+        .center-nav { display: flex; gap: 35px; transition: 0.4s ease;}
         .center-nav a { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; }
 
-        /* 1. HERO WATERMARK (ABU-ABU ELEGAN PERSIS FOTO) */
-        .hero {
-            background: linear-gradient(135deg, #2b2b2b 0%, #151515 100%);
-            padding: 180px 20px 120px 20px; text-align: center; color: white;
-            position: relative; overflow: hidden; min-height: 85vh;
-            display: flex; flex-direction: column; justify-content: center;
-        }
+        /* HAMBURGER MENU */
+        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1002; }
+        .menu-toggle span { width: 30px; height: 2px; background: white; transition: 0.3s; }
+        nav.scrolled .menu-toggle span { background: #111; }
+        .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: #d4af37 !important;}
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: #d4af37 !important;}
+
+        /* HERO WATERMARK */
+        .hero { background: linear-gradient(135deg, #2b2b2b 0%, #151515 100%); padding: 180px 20px 120px 20px; text-align: center; color: white; position: relative; overflow: hidden; min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
         .watermark { position: absolute; top: 15%; left: 5%; transform: rotate(-8deg); opacity: 0.04; pointer-events: none; user-select: none; }
         .watermark h1 { font-family: 'Playfair Display', serif; font-size: 12rem; margin: 0; font-weight: 900; letter-spacing: 5px; line-height: 1;}
         .watermark h2 { font-family: 'Montserrat', sans-serif; font-size: 3rem; margin: 0; letter-spacing: 20px; }
         .watermark div { border-top: 5px solid #fff; width: 100%; margin: 15px 0; }
         .watermark p { font-size: 2rem; font-weight: bold; letter-spacing: 10px; }
-        
         .hero-content { position: relative; z-index: 10; }
-        .hero-subtitle { color: #d4af37; letter-spacing: 4px; font-size: 12px; margin-bottom: 20px; text-transform: uppercase;}
         .hero-title { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin: 0 0 20px 0; line-height: 1.1; }
-        .hero-desc { max-width: 600px; margin: 0 auto; color: #aaa; font-size: 1.1rem; line-height: 1.6; }
 
-        /* 2. OVERVIEW BACK TO ROOTS (PUTIH BERSIH) */
+        /* OTHERS */
         .overview { padding: 120px 20px; max-width: 1000px; margin: 0 auto; text-align: center; background: #fafafa; }
-        .overview h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 30px; color: #111; }
-        .overview p { color: #555; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto; }
         .stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 80px; margin-top: 60px; }
-        .stat-item h3 { font-size: 3rem; color: #d4af37; margin: 0; font-family: 'Montserrat', sans-serif;}
-        .stat-item p { font-size: 12px; color: #888; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; font-weight: bold;}
-
-        /* 3. PRODUCT GRADES CATALOG (GELAP MEWAH) */
+        
         .catalog-section { background: #0a0a0a; color: white; padding: 120px 20px; border-top: 1px solid #222;}
         .catalog-container { max-width: 1100px; margin: 0 auto; }
-        .catalog-title { text-align: center; margin-bottom: 80px; }
-        .catalog-title h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #d4af37; margin-bottom: 15px;}
-        
         .product-row { display: flex; gap: 60px; margin-bottom: 100px; align-items: center; background: #121212; padding: 40px; border-radius: 20px; border: 1px solid #222;}
         .product-row:nth-child(even) { flex-direction: row-reverse; }
-        @media (max-width: 768px) { .product-row, .product-row:nth-child(even) { flex-direction: column; gap: 30px; padding: 25px;} }
-
-        /* KANVAS PUTIH MAGIS UNTUK PNG */
         .product-img { flex: 1; text-align: center; background: #ffffff; padding: 60px 40px; border-radius: 15px; box-shadow: inset 0 0 20px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center;}
         .product-img img { width: 100%; max-width: 320px; mix-blend-mode: multiply; filter: drop-shadow(0 20px 25px rgba(58, 35, 24, 0.4)); transition: transform 0.5s;}
         .product-row:hover .product-img img { transform: scale(1.1) translateY(-10px); }
-        
         .product-info { flex: 1.2; }
         .product-info h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #d4af37; margin-bottom: 15px; }
-        .product-info h4 { font-size: 12px; color: #fff; margin-top: 25px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid #333; padding-bottom: 5px;}
-        .product-info p { color: #aaa; font-size: 14.5px; line-height: 1.7; margin-bottom: 15px; }
         .tech-list { list-style: none; padding: 0; color: #ccc; font-size: 14px; line-height: 2; margin-bottom: 20px;}
         .tech-list li { border-bottom: 1px dashed #222; padding: 4px 0;}
-        .tech-list li:last-child { border-bottom: none;}
         .tech-list li strong { color: white; display: inline-block; width: 130px;}
 
-        /* 4. GENERAL SPECS (GELAP) */
         .specs { background-color: #111; color: white; padding: 100px 20px; border-top: 1px dashed #333;}
-        .specs-container { max-width: 1000px; margin: 0 auto; }
-        .specs-header { text-align: center; margin-bottom: 60px; }
-        .specs-header h4 { color: #d4af37; letter-spacing: 2px; font-size: 12px; margin-bottom: 10px;}
-        .specs-header h2 { font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0;}
         .specs-grid { display: flex; flex-wrap: wrap; gap: 40px; }
         .spec-card { flex: 1 1 400px; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
-        .spec-card h3 { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.5rem;}
-        .spec-list-general { list-style: none; padding: 0; lineHeight: 2.5; color: #ccc; fontSize: 0.95rem; }
-        .spec-list-general li { display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding: 10px 0;}
-        .spec-list-general li:last-child { border-bottom: none; }
-        .spec-list-general strong { color: white; }
 
-        /* 5. PACKAGING / KRAFT BAG 3D (PUTIH BERSIH LAGI) */
         .packaging { padding: 120px 20px; max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 60px; align-items: center; background: #fafafa;}
-        .packaging-text { flex: 1; min-width: 300px; }
-        .packaging-text h4 { color: #d4af37; letter-spacing: 2px; font-size: 12px; margin-bottom: 10px;}
-        .packaging-text h2 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 20px; margin-top: 0; color: #111;}
-        .packaging-text p { color: #555; line-height: 1.8; margin-bottom: 30px; font-size: 15px;}
-        .packaging-text ul { color: #333; line-height: 2.2; padding-left: 20px; font-size: 14px;}
-        .packaging-text ul strong { color: #111; }
-
-        .kraft-bag {
-            flex: 1; height: 500px; min-width: 320px; max-width: 400px; margin: 0 auto;
-            background-color: #C19A6B; 
-            background-image: linear-gradient(to right, rgba(0,0,0,0.2) 0%, transparent 10%, transparent 90%, rgba(0,0,0,0.2) 100%), linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.3) 100%);
-            border-radius: 10px 10px 20px 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.2), inset 0 0 40px rgba(139,69,19,0.3);
-            display: flex; flex-direction: column; padding: 35px; position: relative;
-        }
+        .kraft-bag { flex: 1; height: 500px; min-width: 320px; max-width: 400px; margin: 0 auto; background-color: #C19A6B; background-image: linear-gradient(to right, rgba(0,0,0,0.2) 0%, transparent 10%, transparent 90%, rgba(0,0,0,0.2) 100%), linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.3) 100%); border-radius: 10px 10px 20px 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.2), inset 0 0 40px rgba(139,69,19,0.3); display: flex; flex-direction: column; padding: 35px; position: relative; }
         .kraft-print { border: 3px solid #3b2818; height: 100%; display: flex; flex-direction: column; padding: 20px; mix-blend-mode: multiply; opacity: 0.9; }
-        .bag-logo { border-bottom: 3px solid #3b2818; padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
-        .bag-logo h2 { color: #3b2818; font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; margin: 0; letter-spacing: 2px; line-height: 1;}
-        .bag-logo h3 { color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: bold; margin: 0; letter-spacing: 6px; }
-        .bag-desc { color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: bold; line-height: 1.6; }
-        .bag-footer { margin-top: auto; border-top: 3px solid #3b2818; padding-top: 15px; }
-        .bag-footer-top { display: flex; justify-content: space-between; color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: bold; }
-        .bag-footer-bottom { color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; margin-top: 10px; }
 
-        /* 6. CTA & WHATSAPP */
         .cta { background-color: #d4af37; padding: 100px 20px; text-align: center; }
-        .cta h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #111; margin-bottom: 20px; margin-top: 0; font-weight: 700;}
-        .cta p { color: #333; font-size: 1.2rem; margin: 0 auto 40px auto; max-width: 600px; line-height: 1.6; font-weight: 500;}
-        .btn { display: inline-block; background-color: #111; color: white; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; letter-spacing: 1px; transition: transform 0.3s, box-shadow 0.3s; }
-        .btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
-
         .wa-float { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0px 8px 25px rgba(37, 211, 102, 0.4); transition: transform 0.3s; }
         .wa-float:hover { transform: translateY(-5px) scale(1.05); }
-        .wa-icon { width: 35px; height: 35px; fill: white; }
+
+        /* RESPONSIVE MOBILE FIX */
+        @media (max-width: 768px) {
+            #top-bar { flex-direction: column; gap: 8px; padding: 12px 20px; font-size: 9px; text-align: center; }
+            nav { padding: 15px 20px; }
+            nav.scrolled { padding: 15px 20px; }
+            
+            .menu-toggle { display: flex; }
+            .center-nav {
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+                background: #0f0f0f; flex-direction: column; justify-content: center;
+                border-left: 1px solid #222; opacity: 0; visibility: hidden; z-index: 1001;
+            }
+            .center-nav.active { right: 0; opacity: 1; visibility: visible; box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
+            nav.scrolled .center-nav { background: #fafafa; border-left: 1px solid #ddd; }
+            nav.scrolled .center-nav a:not([style*="color: #d4af37"]) { color: #111; }
+
+            .watermark h1 { font-size: 6rem; }
+            .hero-title { font-size: 3rem !important; }
+            h2 { font-size: 2.2rem !important; }
+            .stats { gap: 30px; }
+            .stat-item h3 { font-size: 2.2rem; }
+            
+            .product-row, .product-row:nth-child(even) { flex-direction: column !important; padding: 20px; }
+            .product-img { padding: 30px 20px !important; width: 100%;}
+            .product-img img { max-width: 250px !important; }
+            
+            .specs-grid, .packaging { flex-direction: column; }
+            .kraft-bag { min-width: 100%; }
+        }
     </style>
 </head>
 <body>
 
+    <div id="top-bar">
+        <div class="tb-item">
+            <svg class="tb-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            Jl. Industri IV No.5, Cimahi, Indonesia
+        </div>
+        <div class="tb-item">
+            <svg class="tb-icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            +62 815-7022-091 / +62 881-4023-002
+        </div>
+        <div class="tb-item">
+            <svg class="tb-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            azkams01@gmail.com
+        </div>
+    </div>
+
     <nav id="navbar">
-        <a href="index.html"><span>←</span> BACK TO MAIN SITE</a>
-        <!-- <div class="center-nav">
+        <a href="index.html"><span>←</span> BACK</a>
+        
+        <div class="menu-toggle" id="mobile-menu">
+      
+        </div>
+
+        <div class="center-nav" id="navLinks">
             <a href="export.html" style="color: #d4af37 !important; font-weight: bold;">Export Catalog</a>
-        </div> -->
+        </div>
         <span class="nav-logo">MULA.</span>
     </nav>
 
     <section class="hero">
-        <div class="watermark">
-            <h1>MULA.</h1>
-            <h2>ORIGINS</h2>
-            <div></div>
-            <p>RAW MATERIALS</p>
-        </div>
+        <div class="watermark"><h1>MULA.</h1><h2>ORIGINS</h2><div></div><p>RAW MATERIALS</p></div>
         <div class="hero-content fade-in-up">
-            <h4 class="hero-subtitle">EXPORT SOURCING DIVISION</h4>
+            <h4 style="color: #d4af37; letter-spacing: 4px; font-size: 12px; margin-bottom: 20px;">EXPORT SOURCING DIVISION</h4>
             <h1 class="hero-title">MULA ORIGINS.</h1>
-            <p class="hero-desc">Premium Indonesian Alkalized Cocoa Powder. Engineered for consistency, tailored for global manufacturing.</p>
+            <p style="max-width: 600px; margin: 0 auto; color: #aaa; font-size: 1.1rem; line-height: 1.6;">Premium Indonesian Alkalized Cocoa Powder. Engineered for consistency, tailored for global manufacturing.</p>
         </div>
     </section>
 
     <section class="overview">
-        <h2 class="fade-in-up">Back to the Roots of True Quality</h2>
-        <p class="fade-in-up delay-1">We partner directly with top-tier local manufacturing facilities in Indonesia to bridge the gap between origin processing and global standards. At Mula Origins, we don't just supply cocoa powder; we supply peace of mind. Every batch we export is strictly monitored to deliver the exact same perfection, every single time.</p>
-        
+        <h2 class="fade-in-up" style="font-family: 'Playfair Display', serif; color: #111; margin-bottom: 30px;">Back to the Roots of True Quality</h2>
+        <p class="fade-in-up delay-1" style="color: #555; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto;">We partner directly with top-tier local manufacturing facilities in Indonesia to bridge the gap between origin processing and global standards. At Mula Origins, we don't just supply cocoa powder; we supply peace of mind. Every batch we export is strictly monitored to deliver the exact same perfection, every single time.</p>
         <div class="stats fade-in-up delay-2">
-            <div class="stat-item"><h3>10-20 MT</h3><p>Monthly Capacity</p></div>
-            <div class="stat-item"><h3>100%</h3><p>Traceable Origin</p></div>
-            <div class="stat-item"><h3>FOB</h3><p>Jakarta Port</p></div>
+            <div class="stat-item"><h3 style="color:#d4af37; font-size:3rem; margin:0;">10-20 MT</h3><p style="font-size:12px; color:#888; font-weight:bold; letter-spacing:2px;">Monthly Capacity</p></div>
+            <div class="stat-item"><h3 style="color:#d4af37; font-size:3rem; margin:0;">100%</h3><p style="font-size:12px; color:#888; font-weight:bold; letter-spacing:2px;">Traceable Origin</p></div>
+            <div class="stat-item"><h3 style="color:#d4af37; font-size:3rem; margin:0;">FOB</h3><p style="font-size:12px; color:#888; font-weight:bold; letter-spacing:2px;">Jakarta Port</p></div>
         </div>
     </section>
 
     <section class="catalog-section">
         <div class="catalog-container">
-            <div class="catalog-title fade-in-up">
-                <h2>Detailed Product Grades</h2>
+            <div class="fade-in-up" style="text-align: center; margin-bottom: 80px;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #d4af37; margin-bottom: 15px;">Detailed Product Grades</h2>
                 <p style="color: #888;">Select the ideal specification for your formulation.</p>
             </div>
             
@@ -182,10 +181,7 @@
                     <h4>Overview</h4>
                     <p>Natural Brown Cocoa Powder gives a classic cocoa note and balanced color profile for standard bakery and beverage production.</p>
                     <h4>Technical Profile</h4>
-                    <ul class="tech-list">
-                        <li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 5.1 - 6.0</li>
-                        <li><strong>Color profile:</strong> Natural brown</li><li><strong>Application fit:</strong> Bakery, beverage, confectionery fillings</li>
-                    </ul>
+                    <ul class="tech-list"><li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 5.1 - 6.0</li><li><strong>Color profile:</strong> Natural brown</li><li><strong>Application fit:</strong> Bakery, beverage, confectionery fillings</li></ul>
                     <h4>Why This Grade</h4>
                     <p>Suitable for formulations that need authentic cocoa flavor with stable process behavior across repeated batches.</p>
                 </div>
@@ -198,10 +194,7 @@
                     <h4>Overview</h4>
                     <p>Alkalized Brown Cocoa Powder delivers smoother flavor and improved dispersion for beverage and bakery applications.</p>
                     <h4>Technical Profile</h4>
-                    <ul class="tech-list">
-                        <li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 6.5 - 6.8</li>
-                        <li><strong>Color profile:</strong> Brown</li><li><strong>Application fit:</strong> Instant drinks, bakery premix, chocolate compounds</li>
-                    </ul>
+                    <ul class="tech-list"><li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 6.5 - 6.8</li><li><strong>Color profile:</strong> Brown</li><li><strong>Application fit:</strong> Instant drinks, bakery premix, chocolate compounds</li></ul>
                     <h4>Why This Grade</h4>
                     <p>Designed for factories that need dependable color and mild alkalized taste for medium-tone finished products.</p>
                 </div>
@@ -214,10 +207,7 @@
                     <h4>Overview</h4>
                     <p>Alkalized Dark Brown Cocoa Powder provides stronger visual depth and richer cocoa expression in baked products.</p>
                     <h4>Technical Profile</h4>
-                    <ul class="tech-list">
-                        <li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 6.7 - 7.5</li>
-                        <li><strong>Color profile:</strong> Dark brown</li><li><strong>Application fit:</strong> Cookies, cakes, biscuit cream</li>
-                    </ul>
+                    <ul class="tech-list"><li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 6.7 - 7.5</li><li><strong>Color profile:</strong> Dark brown</li><li><strong>Application fit:</strong> Cookies, cakes, biscuit cream</li></ul>
                     <h4>Why This Grade</h4>
                     <p>Works well for producers targeting darker appearance while maintaining stable mixing and repeatable output.</p>
                 </div>
@@ -230,10 +220,7 @@
                     <h4>Overview</h4>
                     <p>Alkalized Very Dark Brown Cocoa Powder is tailored for strong cocoa color impact and consistent lot-to-lot appearance.</p>
                     <h4>Technical Profile</h4>
-                    <ul class="tech-list">
-                        <li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 6.8 - 7.8</li>
-                        <li><strong>Color profile:</strong> Very dark brown</li><li><strong>Application fit:</strong> Cookies, cakes, fillings, premix</li>
-                    </ul>
+                    <ul class="tech-list"><li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 6.8 - 7.8</li><li><strong>Color profile:</strong> Very dark brown</li><li><strong>Application fit:</strong> Cookies, cakes, fillings, premix</li></ul>
                     <h4>Why This Grade</h4>
                     <p>Helps reduce formulation variance for manufacturers that require high color intensity in scaled production.</p>
                 </div>
@@ -246,10 +233,7 @@
                     <h4>Overview</h4>
                     <p>Alkalized Black Cocoa Powder offers the deepest cocoa tone for products that need a near-black finish.</p>
                     <h4>Technical Profile</h4>
-                    <ul class="tech-list">
-                        <li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 7.5 - 7.9</li>
-                        <li><strong>Color profile:</strong> Black</li><li><strong>Application fit:</strong> Sandwich cookies, black bakery products</li>
-                    </ul>
+                    <ul class="tech-list"><li><strong>Fat content:</strong> 10% - 12%</li><li><strong>pH range:</strong> 7.5 - 7.9</li><li><strong>Color profile:</strong> Black</li><li><strong>Application fit:</strong> Sandwich cookies, black bakery products</li></ul>
                     <h4>Why This Grade</h4>
                     <p>Best for visual-forward formulations where dark appearance consistency is a key quality target.</p>
                 </div>
@@ -259,25 +243,25 @@
 
     <section class="specs">
         <div class="specs-container">
-            <div class="specs-header fade-in-up">
-                <h4>PRODUCT SHEET</h4>
-                <h2>General Standards</h2>
+            <div class="fade-in-up" style="text-align: center; margin-bottom: 60px;">
+                <h4 style="color: #d4af37; letter-spacing: 2px; font-size: 12px; margin-bottom: 10px;">PRODUCT SHEET</h4>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0;">General Standards</h2>
             </div>
             <div class="specs-grid">
-                <div class="spec-card fade-in-up delay-1">
-                    <h3>Physical & Chemical</h3>
-                    <ul class="spec-list-general">
-                        <li><span>Fat Content</span> <strong>10% - 12%</strong></li>
-                        <li><span>Moisture</span> <strong>Max 5.0%</strong></li>
-                        <li><span>Fineness (200 mesh)</span> <strong>Min 99.5%</strong></li>
+                <div class="spec-card fade-in-up delay-1" style="flex: 1 1 400px; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h3 style="margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.5rem;">Physical & Chemical</h3>
+                    <ul style="list-style: none; padding: 0; color: #ccc; font-size: 0.95rem;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding: 10px 0;"><span>Fat Content</span> <strong style="color:white;">10% - 12%</strong></li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding: 10px 0;"><span>Moisture</span> <strong style="color:white;">Max 5.0%</strong></li>
+                        <li style="display: flex; justify-content: space-between; padding: 10px 0;"><span>Fineness (200 mesh)</span> <strong style="color:white;">Min 99.5%</strong></li>
                     </ul>
                 </div>
-                <div class="spec-card fade-in-up delay-2">
-                    <h3>Microbiological</h3>
-                    <ul class="spec-list-general">
-                        <li><span>Total Plate Count</span> <strong>&lt; 5,000 cfu/g</strong></li>
-                        <li><span>Yeast & Mold</span> <strong>&lt; 50 cfu/g</strong></li>
-                        <li><span>E. Coli & Salmonella</span> <strong>Negative</strong></li>
+                <div class="spec-card fade-in-up delay-2" style="flex: 1 1 400px; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h3 style="margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.5rem;">Microbiological</h3>
+                    <ul style="list-style: none; padding: 0; color: #ccc; font-size: 0.95rem;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding: 10px 0;"><span>Total Plate Count</span> <strong style="color:white;">&lt; 5,000 cfu/g</strong></li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding: 10px 0;"><span>Yeast & Mold</span> <strong style="color:white;">&lt; 50 cfu/g</strong></li>
+                        <li style="display: flex; justify-content: space-between; padding: 10px 0;"><span>E. Coli & Salmonella</span> <strong style="color:white;">Negative</strong></li>
                     </ul>
                 </div>
             </div>
@@ -285,71 +269,73 @@
     </section>
 
     <section class="packaging">
-        <div class="packaging-text fade-in-up">
-            <h4>LOGISTICS</h4>
-            <h2>Standard Packaging</h2>
-            <p>Our cocoa powder is securely packed for international shipping to maintain optimum quality, moisture levels, and food safety standards during transit.</p>
-            <ul>
-                <li><strong>Bag:</strong> 25 Kg Multi-wall Kraft Paper Bag with inner Polyethylene (PE) liner.</li>
-                <li><strong>Shelf Life:</strong> 24 Months from production date under proper storage.</li>
-                <li><strong>Terms:</strong> FOB Jakarta (Tanjung Priok Port).</li>
-            </ul>
+        <div class="fade-in-up" style="flex: 1; min-width: 300px;">
+            <h4 style="color: #d4af37; letter-spacing: 2px; font-size: 12px; margin-bottom: 10px;">LOGISTICS</h4>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 20px; color: #111;">Standard Packaging</h2>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 30px; font-size: 15px;">Our cocoa powder is securely packed for international shipping to maintain optimum quality, moisture levels, and food safety standards during transit.</p>
+            <ul style="color: #333; line-height: 2.2; padding-left: 20px; font-size: 14px;"><li><strong style="color:#111;">Bag:</strong> 25 Kg Multi-wall Kraft Paper Bag with inner Polyethylene (PE) liner.</li><li><strong style="color:#111;">Shelf Life:</strong> 24 Months from production date under proper storage.</li><li><strong style="color:#111;">Terms:</strong> FOB Jakarta (Tanjung Priok Port).</li></ul>
         </div>
-        
         <div class="kraft-bag fade-in-up delay-1">
             <div class="kraft-print">
-                <div class="bag-logo">
-                    <h2>MULA.</h2>
-                    <h3>ORIGINS</h3>
-                </div>
-                <div class="bag-desc">
-                    <div>CACAO EN POUDRE</div>
-                    <div>COCOA POWDER</div>
-                    <div>KAKAOPULVER</div>
-                    <div>CACAO EN POLVO</div>
-                </div>
-                <div class="bag-footer">
-                    <div class="bag-footer-top">
-                        <span>NET WT. 25 KG</span>
-                        <span>INDONESIA</span>
-                    </div>
-                    <div class="bag-footer-bottom">
-                        ALKALIZED • FAT CONTENT 10-12%
-                    </div>
-                </div>
+                <div style="border-bottom: 3px solid #3b2818; padding-bottom: 15px; margin-bottom: 25px; text-align: center;"><h2 style="color: #3b2818; font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; margin: 0; letter-spacing: 2px;">MULA.</h2><h3 style="color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: bold; margin: 0; letter-spacing: 6px;">ORIGINS</h3></div>
+                <div style="color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: bold; line-height: 1.6;"><div>CACAO EN POUDRE</div><div>COCOA POWDER</div><div>KAKAOPULVER</div><div>CACAO EN POLVO</div></div>
+                <div style="margin-top: auto; border-top: 3px solid #3b2818; padding-top: 15px;"><div style="display: flex; justify-content: space-between; color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: bold;"><span>NET WT. 25 KG</span><span>INDONESIA</span></div><div style="color: #3b2818; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 600; margin-top: 10px;">ALKALIZED • FAT CONTENT 10-12%</div></div>
             </div>
         </div>
     </section>
 
     <section class="cta fade-in-up">
-        <h2>Ready to Secure Your Supply?</h2>
-        <p>Contact our sourcing division to request a full Certificate of Analysis (CoA), pricing, and arrange your shipment.</p>
-        <a href="https://wa.me/628157022091" target="_blank" class="btn">CONTACT US TODAY</a>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #111; margin-bottom: 20px; font-weight: 700;">Ready to Secure Your Supply?</h2>
+        <p style="color: #333; font-size: 1.2rem; margin: 0 auto 40px auto; max-width: 600px; line-height: 1.6; font-weight: 500;">Contact our sourcing division to request a full Certificate of Analysis (CoA), pricing, and arrange your shipment.</p>
+        <a href="https://wa.me/628157022091" target="_blank" style="display: inline-block; background-color: #111; color: white; padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; letter-spacing: 1px; transition: transform 0.3s, box-shadow 0.3s;">CONTACT US TODAY</a>
     </section>
 
     <a href="https://wa.me/628157022091" class="wa-float" target="_blank" aria-label="WhatsApp Us">
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <svg style="width: 35px; height: 35px; fill: white;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
+    <footer style="background: #050201; padding: 60px 20px; text-align: center; color: #555; font-size: 13px;">
+        <h2 style="color: white; font-family: 'Playfair Display', serif; margin-bottom: 15px; font-size: 2.5rem; font-weight: 900; letter-spacing: 2px;">MULA ORIGINS.</h2>
+        <p>&copy; 2026 Mula Origins Indonesia. Premium B2B Supplier.</p>
+    </footer>
+
     <script>
-        // LOGIC NAVBAR
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
+        // LOGIC NAVBAR & TOP BAR SCROLL
+        const topBar = document.getElementById('top-bar');
+        const nav = document.getElementById('navbar');
+        
+        function handleScroll() {
+            const topBarHeight = topBar.offsetHeight;
+            if (window.scrollY > topBarHeight) {
+                nav.classList.add('scrolled');
+                nav.style.top = '0px';
+            } else {
+                nav.classList.remove('scrolled');
+                nav.style.top = topBarHeight + 'px';
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+        handleScroll();
+
+        // MOBILE HAMBURGER MENU
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
 
-        // LOGIC ANIMASI MUNCUL 1-1 (Fade In)
+        // SCROLL ANIMATION
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Animasi cuma 1x jalan biar pro
+                        observer.unobserve(entry.target); 
                     }
                 });
             }, { root: null, rootMargin: '0px', threshold: 0.15 });
-            
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
         });
     </script>
